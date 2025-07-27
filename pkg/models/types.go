@@ -69,7 +69,7 @@ type CategoryRecommendation struct {
 
 // IssueDetail represents a specific issue found in the analysis
 type IssueDetail struct {
-	Issue         string `json:"issue"`          // Description of the issue
-	Impact        string `json:"impact"`         // What this affects
-	CurrentStatus string `json:"current_status"` // Current state description
+	Issue         string `json:"issue"`
+	Impact        string `json:"impact"`
+	CurrentStatus string `json:"current_status"`
 }
