@@ -10,8 +10,8 @@ import (
 )
 
 func main() {
-	fmt.Println("Website Checker - Robots.txt, Sitemap & SEO Example")
-	fmt.Println("====================================================")
+	fmt.Println("Website Checker - Robots.txt, Sitemap, SEO & Security Example")
+	fmt.Println("=============================================================")
 
 	// Example URLs to test
 	testURLs := []string{
@@ -43,6 +43,15 @@ func main() {
 		for _, result := range seoResults {
 			printResult(result)
 			fmt.Println() // Add spacing between SEO checks
+		}
+
+		// Check security headers
+		fmt.Println("\n🛡️  Security Headers Checks:")
+		fmt.Println("----------------------------")
+		securityResults := checker.CheckSecurityHeaders(url)
+		for _, result := range securityResults {
+			printResult(result)
+			fmt.Println() // Add spacing between security checks
 		}
 	}
 }
