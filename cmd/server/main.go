@@ -4,11 +4,14 @@ import (
 	"context"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
 
 	"github.com/hawkaii/website-checker.git/internal/handlers"
 	"github.com/hawkaii/website-checker.git/internal/storage"
@@ -16,14 +19,43 @@ import (
 )
 
 func main() {
+	// Load .env file
+	err := godotenv.Load()
+	if err != nil {
+		log.Println("Warning: .env file not found")
+	}
+
 	// Initialize Gin router
 	router := gin.Default()
 
-	// Connect to MongoDB (adjust the URI as needed)
-	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
+	// Get MongoDB URI from environment
+	mongoURI := os.Getenv("MONGO_URI")
+	if mongoURI == "" {
+		mongoURI = "mongodb://localhost:27017" // fallback
+	}
+
+	// Use the SetServerAPIOptions() method to set the version of the Stable API on the client
+	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
+	opts := options.Client().ApplyURI(mongoURI).SetServerAPIOptions(serverAPI)
+
+	// Create a new client and connect to the server
+	client, err := mongo.Connect(context.TODO(), opts)
 	if err != nil {
 		log.Fatal("Error connecting to MongoDB: ", err)
 	}
+
+	defer func() {
+		if err = client.Disconnect(context.TODO()); err != nil {
+			log.Printf("Error disconnecting from MongoDB: %v", err)
+		}
+	}()
+
+	// Send a ping to confirm a successful connection
+	if err := client.Ping(context.TODO(), readpref.Primary()); err != nil {
+		log.Fatal("Failed to ping MongoDB: ", err)
+	}
+	log.Println("Pinged your deployment. You successfully connected to MongoDB!")
+
 	db := client.Database("website_checker")
 
 	// Create storage layer repositories.
@@ -62,6 +94,7 @@ func main() {
 	}
 
 	log.Println("Starting API server on port 8080...")
+	log.Printf("Using MongoDB URI: %s", mongoURI)
 	if err := srv.ListenAndServe(); err != nil {
 		log.Fatal("Server failed: ", err)
 	}
