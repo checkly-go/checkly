@@ -13,7 +13,6 @@ import (
 func CheckRobotsTxt(baseURL string) models.CheckResult {
 	start := time.Now()
 
-	// Parse the base URL and construct robots.txt URL
 	u, err := url.Parse(baseURL)
 	if err != nil {
 		return models.CheckResult{
@@ -41,7 +40,6 @@ func CheckRobotsTxt(baseURL string) models.CheckResult {
 	}
 	defer resp.Body.Close()
 
-	// Check status code
 	if resp.StatusCode == 200 {
 		return models.CheckResult{
 			Name:      "Robots.txt",

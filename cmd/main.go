@@ -10,15 +10,14 @@ import (
 )
 
 func main() {
-	fmt.Println("Website Checker - Robots.txt & Sitemap Example")
-	fmt.Println("===============================================")
+	fmt.Println("Website Checker - Robots.txt, Sitemap & SEO Example")
+	fmt.Println("====================================================")
 
 	// Example URLs to test
 	testURLs := []string{
 		"https://google.com",
 		"https://github.com",
 		"https://hawkaii.netlify.app",
-		"https://nonexistent-site-12345.com",
 	}
 
 	for _, url := range testURLs {
@@ -36,6 +35,15 @@ func main() {
 		fmt.Println("------------------")
 		sitemapResult := checker.CheckSitemapWithRobotsURL(url)
 		printResult(sitemapResult)
+
+		// Check SEO metadata
+		fmt.Println("\n🏷️  SEO Metadata Checks:")
+		fmt.Println("------------------------")
+		seoResults := checker.CheckSEOMetadataFromURL(url)
+		for _, result := range seoResults {
+			printResult(result)
+			fmt.Println() // Add spacing between SEO checks
+		}
 	}
 }
 
