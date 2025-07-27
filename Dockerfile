@@ -27,7 +27,7 @@ WORKDIR /root/
 COPY --from=builder /app/server .
 
 # Set environment variable for MongoDB URI (can be overridden at runtime)
-ENV MONGO_URI
+ENV MONGO_URI=""
 
 # Run the server application
 CMD ["./server"]
