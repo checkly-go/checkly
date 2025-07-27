@@ -20,13 +20,11 @@ import (
 )
 
 func main() {
-	// Load .env file
 	err := godotenv.Load()
 	if err != nil {
 		log.Println("Warning: .env file not found")
 	}
 
-	// Initialize Gin router
 	router := gin.Default()
 
 	// Get MongoDB URI from environment
@@ -61,15 +59,10 @@ func main() {
 
 	db := client.Database("website_checker")
 
-	// Create storage layer repositories.
-	// User repository is set up for future use.
-	userRepo := storage.NewUserRepository(db)
+	userRepo := storage.NewUserRepository(db) // User repository is set up for future use.
 	checkRepo := storage.NewCheckRepository(db)
 
-	// Create a new Checker instance from the core library package.
 	chk := checker.NewChecker()
-
-	// Create the Service object that holds the checker and storage repositories.
 	service := &handlers.Service{
 		Checker:   chk,
 		UserRepo:  userRepo,
@@ -82,6 +75,7 @@ func main() {
 		api.POST("/check", service.SubmitCheck)
 		api.GET("/check/:id", service.GetCheck)
 		api.GET("/check/:id/report", service.GetCheckReport)
+		api.POST("/recommend", service.GetRecommendations)
 		api.GET("/health", func(c *gin.Context) {
 			c.JSON(http.StatusOK, gin.H{"status": "ok"})
 		})
