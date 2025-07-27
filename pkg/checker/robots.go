@@ -26,6 +26,7 @@ func CheckRobotsTxt(baseURL string) models.CheckResult {
 	}
 
 	robotsURL := fmt.Sprintf("%s://%s/robots.txt", u.Scheme, u.Host)
+	fmt.Println(robotsURL)
 
 	// Make HTTP GET request
 	resp, err := http.Get(robotsURL)
