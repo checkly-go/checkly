@@ -39,3 +39,37 @@ type WebsiteCheck struct {
 	Error     string             `bson:"error,omitempty" json:"error,omitempty"`
 	CreatedAt time.Time          `bson:"created_at" json:"created_at"`
 }
+
+// Recommendation models for AI-powered recommendations
+
+// RecommendationRequest represents the request payload for recommendations
+type RecommendationRequest struct {
+	CheckID string         `json:"check_id,omitempty"` // Reference existing check
+	URL     string         `json:"url,omitempty"`      // Or provide data directly
+	Report  *WebsiteReport `json:"report,omitempty"`   // Direct report data
+	Focus   []string       `json:"focus,omitempty"`    // Focus areas: robots, seo, security, sitemap
+}
+
+// RecommendationResponse represents the AI-generated recommendations
+type RecommendationResponse struct {
+	URL             string                   `json:"url"`
+	GeneratedAt     time.Time                `json:"generated_at"`
+	Summary         string                   `json:"summary"`
+	Recommendations []CategoryRecommendation `json:"recommendations"`
+}
+
+// CategoryRecommendation represents recommendations for a specific category
+type CategoryRecommendation struct {
+	Category     string        `json:"category"`            // robots, seo, security, sitemap
+	Priority     string        `json:"priority"`            // high, medium, low
+	Issues       []IssueDetail `json:"issues"`              // Detailed issue descriptions
+	Improvements []string      `json:"improvements"`        // Actionable improvement steps
+	Resources    []string      `json:"resources,omitempty"` // Optional resources/links
+}
+
+// IssueDetail represents a specific issue found in the analysis
+type IssueDetail struct {
+	Issue         string `json:"issue"`          // Description of the issue
+	Impact        string `json:"impact"`         // What this affects
+	CurrentStatus string `json:"current_status"` // Current state description
+}
