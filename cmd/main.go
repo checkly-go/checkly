@@ -6,11 +6,12 @@ import (
 	"log"
 
 	"github.com/hawkaii/website-checker.git/pkg/checker"
+	"github.com/hawkaii/website-checker.git/pkg/models"
 )
 
 func main() {
-	fmt.Println("Website Checker - Robots.txt Example")
-	fmt.Println("=====================================")
+	fmt.Println("Website Checker - Robots.txt & Sitemap Example")
+	fmt.Println("===============================================")
 
 	// Example URLs to test
 	testURLs := []string{
@@ -21,22 +22,50 @@ func main() {
 	}
 
 	for _, url := range testURLs {
-		fmt.Printf("\nChecking robots.txt for: %s\n", url)
-		fmt.Println("----------------------------------------")
+		fmt.Printf("\n🔍 Checking: %s\n", url)
+		fmt.Println("========================================")
 
-		result := checker.CheckRobotsTxt(url)
+		// Check robots.txt
+		fmt.Println("\n📋 Robots.txt Check:")
+		fmt.Println("--------------------")
+		robotsResult := checker.CheckRobotsTxt(url)
+		printResult(robotsResult)
 
-		jsonResult, err := json.MarshalIndent(result, "", "  ")
-		if err != nil {
-			log.Printf("Error marshaling result: %v", err)
-			continue
-		}
+		// Check sitemap
+		fmt.Println("\n🗺️  Sitemap Check:")
+		fmt.Println("------------------")
+		sitemapResult := checker.CheckSitemapWithRobotsURL(url)
+		printResult(sitemapResult)
+	}
+}
 
-		fmt.Println(string(jsonResult))
+func printResult(result models.CheckResult) {
+	// Pretty print the result as JSON
+	jsonResult, err := json.MarshalIndent(result, "", "  ")
+	if err != nil {
+		log.Printf("Error marshaling result: %v", err)
+		return
+	}
 
-		fmt.Printf("Result: %s - %s\n", result.Status, result.Message)
-		if result.Details != "" {
-			fmt.Printf("Details: %s\n", result.Details)
-		}
+	fmt.Println(string(jsonResult))
+
+	// Also display in a user-friendly format
+	statusEmoji := getStatusEmoji(result.Status)
+	fmt.Printf("\n%s Result: %s - %s\n", statusEmoji, result.Status, result.Message)
+	if result.Details != "" {
+		fmt.Printf("Details: %s\n", result.Details)
+	}
+}
+
+func getStatusEmoji(status models.Status) string {
+	switch status {
+	case models.StatusPass:
+		return "✅"
+	case models.StatusWarning:
+		return "🟡"
+	case models.StatusFail:
+		return "❌"
+	default:
+		return "❓"
 	}
 }
