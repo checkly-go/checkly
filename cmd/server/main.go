@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -31,7 +32,9 @@ func main() {
 	// Get MongoDB URI from environment
 	mongoURI := os.Getenv("MONGO_URI")
 	if mongoURI == "" {
-		mongoURI = "mongodb://localhost:27017" // fallback
+		fmt.Println("no mongo_uri found ")
+		//mongoURI = "mongodb://localhost:27017" // fallback
+
 	}
 
 	// Use the SetServerAPIOptions() method to set the version of the Stable API on the client
@@ -64,7 +67,6 @@ func main() {
 	checkRepo := storage.NewCheckRepository(db)
 
 	// Create a new Checker instance from the core library package.
-	// Ensure that the NewChecker() exists in pkg/checker.
 	chk := checker.NewChecker()
 
 	// Create the Service object that holds the checker and storage repositories.
