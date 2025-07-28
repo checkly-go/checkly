@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![ChecKly Logo](src/assets/logo.png)
+![ChecKly Logo](assets/logo.png)
 
 **Get instant insights about your website's performance, security, and SEO. Make your website ready for success with ChecKly.**
 
