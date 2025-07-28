@@ -3,6 +3,7 @@ package handlers
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -97,4 +98,44 @@ func (s *Service) GetCheckReport(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, check.Report)
+}
+
+// GetLeaderboard handles GET /api/v1/leaderboard to retrieve top websites by score.
+func (s *Service) GetLeaderboard(c *gin.Context) {
+	limitStr := c.DefaultQuery("limit", "10")
+	limit, err := strconv.Atoi(limitStr)
+	if err != nil || limit <= 0 {
+		limit = 10
+	}
+	if limit > 100 {
+		limit = 100
+	}
+
+	ctx := context.Background()
+	leaderboard, err := s.CheckRepo.GetLeaderboard(ctx, limit)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch leaderboard: " + err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"leaderboard": leaderboard,
+		"total":       len(leaderboard),
+		"limit":       limit,
+	})
+}
+
+// GetAllChecks handles GET /api/v1/debug/checks to see all checks (debug endpoint).
+func (s *Service) GetAllChecks(c *gin.Context) {
+	ctx := context.Background()
+	checks, err := s.CheckRepo.GetAllChecks(ctx)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch checks: " + err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"checks": checks,
+		"total":  len(checks),
+	})
 }

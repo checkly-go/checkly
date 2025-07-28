@@ -73,3 +73,10 @@ type IssueDetail struct {
 	Impact        string `json:"impact"`
 	CurrentStatus string `json:"current_status"`
 }
+
+// LeaderboardEntry represents a website entry in the leaderboard
+type LeaderboardEntry struct {
+	URL          string    `json:"url"`
+	OverallScore int       `json:"overall_score"`
+	Timestamp    time.Time `json:"timestamp"`
+}
