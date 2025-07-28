@@ -243,7 +243,7 @@ checkly/
 graph TB
     %% External interfaces
     CLI[🖥️ CLI Interface]
-    TUI[📱 TUI Interface<br/>*(to be completed)*]
+    TUI[📱 TUI Interface]
     API[🌐 REST API]
     
     %% Core application layer
