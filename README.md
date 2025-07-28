@@ -26,18 +26,27 @@ A comprehensive website analysis tool that evaluates websites across multiple di
 
 ### Installation
 
+#### Using Go Install (Recommended)
+```bash
+# Install directly from GitHub
+go install github.com/checkly-go/checkly@latest
+
+# The binary will be available as 'checkly' in your $GOPATH/bin
+checkly -url https://example.com
+```
+
 #### From Source
 ```bash
 git clone https://github.com/checkly-go/checkly.git
 cd checkly
 go mod download
-go build -o checkly ./cmd/
+go build -o checkly .
 ```
 
 #### Build All Components
 ```bash
 # Build CLI tool
-go build -o checkly ./cmd/
+go build -o checkly .
 
 # Build TUI interface (to be completed)
 go build -o checkly-tui ./cmd/tui/
@@ -62,15 +71,14 @@ go build -o server ./cmd/server/
 # Custom checker selection
 ./checkly -url https://example.com -checkers security,sitemap -output text
 ```
+## 🌐 Frontend
 
-#### Interactive TUI Mode *(to be completed)*
-```bash
-# Launch beautiful terminal interface
-./checkly -tui
+The website checker includes a modern React-based frontend interface for easy website analysis.
 
-# Or run TUI directly
-./checkly-tui
-```
+- **Repository**: [https://github.com/checkly-go/checkly-ui](https://github.com/checkly-go/checkly-ui)
+- **Live Demo**: [https://checkly-go.vercel.app/](https://checkly-go.vercel.app/)
+
+
 
 #### API Server Mode
 ```bash
@@ -80,6 +88,14 @@ go build -o server ./cmd/server/
 # Server runs on http://localhost:8080
 ```
 
+#### Interactive TUI Mode *(to be completed)*
+```bash
+# Launch beautiful terminal interface
+./checkly -tui
+
+# Or run TUI directly
+./checkly-tui
+```
 ## 📋 Available Checks
 
 | Check Type | Description | Status Indicators |
@@ -107,7 +123,7 @@ go build -o server ./cmd/server/
 ./checkly -url https://mywebsite.com -checkers robots,sitemap,seo,security -output text
 ```
 
-### TUI Interface Navigation *(to be completed)*
+### TUI Interface Navigation *(!!to be completed)*
 
 ```bash
 ./checkly -tui
@@ -207,9 +223,9 @@ Examples:
 ```
 checkly/
 ├── cmd/                          # Application entry points
-│   ├── main.go                   # Main CLI application
 │   ├── server/main.go            # REST API server
 │   └── tui/main.go              # Terminal UI application (to be completed)
+├── main.go                      # Main CLI application
 ├── internal/                     # Private application code
 │   ├── handlers/                 # HTTP request handlers
 │   │   ├── service.go           # Main service handlers
@@ -256,7 +272,7 @@ graph TB
     
     %% Core application layer
     subgraph "Backend Application Layer"
-        MAIN[📋 Main CLI<br/>cmd/main.go]
+        MAIN[📋 Main CLI<br/>main.go]
         SERVER[🚀 HTTP Server<br/>cmd/server/main.go]
         TUIMAIN[🎯 TUI App<br/>cmd/tui/main.go]
     end
@@ -355,13 +371,6 @@ graph TB
     class TARGET,GEMINI_API,FIREBASE external
     class GEMINI,RECOMMEND ai
 ```
-
-## 🌐 Frontend
-
-The website checker includes a modern React-based frontend interface for easy website analysis.
-
-- **Repository**: [https://github.com/checkly-go/checkly-ui](https://github.com/checkly-go/checkly-ui)
-- **Live Demo**: [https://checkly-go.vercel.app/](https://checkly-go.vercel.app/)
 
 ### Core Components
 
@@ -512,7 +521,7 @@ docker run -p 8080:8080 \
 ### Prerequisites
 - Go 1.24.1 or later
 - MongoDB (for API server)
-- Google Gemini API key (for AI recommendations)
+- Google Gemini API key (for AI recommendations) (server-only for now)
 
 ### Development Setup
 ```bash
@@ -527,7 +536,7 @@ go mod download
 go test ./...
 
 # Run locally
-go run ./cmd/ -url https://example.com
+go run . -url https://example.com
 
 # Run TUI locally (to be completed)
 go run ./cmd/tui/
@@ -617,6 +626,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **MongoDB** - Reliable database solution
 - **Google Gemini** - Powerful AI capabilities
 - **Go Community** - Amazing ecosystem and tools
+- **Sliplane** - for hosting the server
 
 ## 📞 Support
 
