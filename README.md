@@ -34,6 +34,16 @@
   <p><em>Interactive leaderboard showcasing top-performing websites and competitive analysis features</em></p>
 </td>
 </tr>
+<tr>
+<td width="50%">
+  <img src="assets/cli.png" alt="CLI Interface" width="100%">
+  <p><em>Command-line interface showing comprehensive website analysis with detailed results and status indicators</em></p>
+</td>
+<td width="50%">
+  <img src="assets/recommend.png" alt="AI Recommendations" width="100%">
+  <p><em>AI-powered recommendations interface providing intelligent insights and prioritized action items for website optimization</em></p>
+</td>
+</tr>
 </table>
 
 **🔗 Try it now:**
@@ -142,10 +152,6 @@ go build -o server ./cmd/server/
 # Security-focused audit
 ./checkly -url https://example.com -checkers security,sitemap -output text
 ```
-
-<img src="assets/cli.png" alt="CLI Interface" width="500">
-
-*Command-line interface showing comprehensive website analysis with detailed results and status indicators*
 
 #### 🖥️ API Server Mode
 ```bash
@@ -575,10 +581,6 @@ type WebsiteReport struct {
 ## 🤖 AI-Powered Recommendations
 
 The tool integrates with Google Gemini to provide intelligent, actionable recommendations based on check results.
-
-<img src="assets/recommend.png" alt="AI Recommendations" width="500">
-
-*AI-powered recommendations interface providing intelligent insights and prioritized action items for website optimization*
 
 ### Features
 - **Contextual Analysis**: Understands the impact of each issue
