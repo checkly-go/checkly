@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/hawkaii/website-checker.git/pkg/models"
+	"github.com/checkly-go/checkly/pkg/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"

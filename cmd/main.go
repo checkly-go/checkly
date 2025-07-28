@@ -9,9 +9,9 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/hawkaii/website-checker.git/pkg/checker"
-	"github.com/hawkaii/website-checker.git/pkg/models"
-	"github.com/hawkaii/website-checker.git/pkg/report"
+	"github.com/checkly-go/checkly/pkg/checker"
+	"github.com/checkly-go/checkly/pkg/models"
+	"github.com/checkly-go/checkly/pkg/report"
 )
 
 type Config struct {

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/hawkaii/website-checker.git/pkg/models"
+	"github.com/checkly-go/checkly/pkg/models"
 )
 
 type Checker struct {

@@ -14,9 +14,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 
-	"github.com/hawkaii/website-checker.git/internal/handlers"
-	"github.com/hawkaii/website-checker.git/internal/storage"
-	"github.com/hawkaii/website-checker.git/pkg/checker"
+	"github.com/checkly-go/checkly/internal/handlers"
+	"github.com/checkly-go/checkly/internal/storage"
+	"github.com/checkly-go/checkly/pkg/checker"
 )
 
 func main() {

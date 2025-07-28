@@ -8,8 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	"github.com/hawkaii/website-checker.git/pkg/ai"
-	"github.com/hawkaii/website-checker.git/pkg/models"
+	"github.com/checkly-go/checkly/pkg/ai"
+	"github.com/checkly-go/checkly/pkg/models"
 )
 
 // GetRecommendations handles POST /api/v1/recommend

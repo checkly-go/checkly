@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hawkaii/website-checker.git/pkg/models"
+	"github.com/checkly-go/checkly/pkg/models"
 	"golang.org/x/net/html"
 )
 

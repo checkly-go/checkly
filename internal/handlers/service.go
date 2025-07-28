@@ -8,9 +8,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	"github.com/hawkaii/website-checker.git/internal/storage"
-	"github.com/hawkaii/website-checker.git/pkg/checker"
-	"github.com/hawkaii/website-checker.git/pkg/models"
+	"github.com/checkly-go/checkly/internal/storage"
+	"github.com/checkly-go/checkly/pkg/checker"
+	"github.com/checkly-go/checkly/pkg/models"
 )
 
 // Service holds the shared objects needed by the HTTP handlers.
