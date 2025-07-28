@@ -237,6 +237,109 @@ checkly/
 └── README.md                    # This file
 ```
 
+## 🏛️ Backend Architecture
+
+```mermaid
+graph TB
+    %% External interfaces
+    CLI[🖥️ CLI Interface]
+    TUI[📱 TUI Interface<br/>*(to be completed)*]
+    API[🌐 REST API]
+    
+    %% Core application layer
+    subgraph "Application Layer"
+        MAIN[📋 Main CLI<br/>cmd/main.go]
+        SERVER[🚀 HTTP Server<br/>cmd/server/main.go]
+        TUIMAIN[🎯 TUI App<br/>cmd/tui/main.go]
+    end
+    
+    %% Service layer
+    subgraph "Service Layer"
+        SERVICE[⚙️ Service Handler<br/>internal/handlers/service.go]
+        RECOMMEND[🤖 Recommendation Handler<br/>internal/handlers/recommendation.go]
+    end
+    
+    %% Core business logic
+    subgraph "Core Engine"
+        CHECKER[🔍 Website Checker<br/>pkg/checker/checker.go]
+        
+        subgraph "Individual Checkers"
+            ROBOTS[🤖 Robots.txt<br/>robots.go]
+            SITEMAP[🗺️ Sitemap<br/>sitemap.go]
+            SEO[🏷️ SEO Analysis<br/>seo.go]
+            SECURITY[🛡️ Security Headers<br/>security.go]
+        end
+    end
+    
+    %% AI Integration
+    subgraph "AI Layer"
+        GEMINI[🧠 Google Gemini<br/>pkg/ai/gemini.go]
+    end
+    
+    %% Data layer
+    subgraph "Data Layer"
+        MODELS[📊 Data Models<br/>pkg/models/types.go]
+        STORAGE[💾 MongoDB Storage<br/>internal/storage/mongo.go]
+        REPORT[📄 Report Generator<br/>pkg/report/]
+    end
+    
+    %% External services
+    subgraph "External Services"
+        MONGO[(🍃 MongoDB<br/>Database)]
+        GEMINI_API[🤖 Google Gemini API]
+        TARGET[🌐 Target Website]
+    end
+    
+    %% Interface connections
+    CLI --> MAIN
+    TUI --> TUIMAIN
+    API --> SERVER
+    
+    %% Application to service connections
+    SERVER --> SERVICE
+    SERVER --> RECOMMEND
+    
+    %% Service to core connections
+    SERVICE --> CHECKER
+    RECOMMEND --> CHECKER
+    RECOMMEND --> GEMINI
+    MAIN --> CHECKER
+    TUIMAIN --> CHECKER
+    
+    %% Core engine connections
+    CHECKER --> ROBOTS
+    CHECKER --> SITEMAP
+    CHECKER --> SEO
+    CHECKER --> SECURITY
+    
+    %% Data flow connections
+    CHECKER --> MODELS
+    CHECKER --> REPORT
+    SERVICE --> STORAGE
+    RECOMMEND --> STORAGE
+    
+    %% External service connections
+    STORAGE --> MONGO
+    GEMINI --> GEMINI_API
+    ROBOTS --> TARGET
+    SITEMAP --> TARGET
+    SEO --> TARGET
+    SECURITY --> TARGET
+    
+    %% Styling
+    classDef interface fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef core fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef data fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef external fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef ai fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    
+    class CLI,TUI,API interface
+    class CHECKER,ROBOTS,SITEMAP,SEO,SECURITY core
+    class MODELS,STORAGE,REPORT,MONGO data
+    class TARGET,GEMINI_API external
+    class GEMINI,RECOMMEND ai
+```
+
 ### Core Components
 
 #### 1. Checker Engine (`pkg/checker/`)
