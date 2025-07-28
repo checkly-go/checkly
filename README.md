@@ -1,6 +1,19 @@
-# checkly 
+# 🚀 ChecKly - Website Analysis Made Simple
 
-A comprehensive website analysis tool that evaluates websites across multiple dimensions including SEO, security, robots.txt compliance, and sitemap validation. Built with Go and powered by AI-driven recommendations.
+<div align="center">
+
+![ChecKly Logo](src/assets/logo.png)
+
+**Get instant insights about your website's performance, security, and SEO. Make your website ready for success with ChecKly.**
+
+[![Golang](https://img.shields.io/badge/Go-1.21+-00ADD8?style=for-the-badge&logo=go)](https://golang.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-6.0+-47A248?style=for-the-badge&logo=mongodb)](https://mongodb.com/)
+[![Gin](https://img.shields.io/badge/Gin-1.9+-00ACD7?style=for-the-badge&logo=go)](https://gin-gonic.com/)
+[![Docker](https://img.shields.io/badge/Docker-24.0+-2496ED?style=for-the-badge&logo=docker)](https://docker.com/)
+
+[Live Demo](https://checkly-go.vercel.app) • [Report Bug](https://github.com/checkly-go/checkly/issues) • [Request Feature](https://github.com/checkly-go/checkly/issues)
+
+</div>
 
 ## 🌟 Features
 
