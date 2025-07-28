@@ -7,8 +7,8 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/hawkaii/website-checker.git/pkg/checker"
-	"github.com/hawkaii/website-checker.git/pkg/models"
+	"github.com/checkly-go/checkly/pkg/checker"
+	"github.com/checkly-go/checkly/pkg/models"
 )
 
 var (
