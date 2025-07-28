@@ -1,4 +1,4 @@
-# Website Checker 🚀
+# checkly 
 
 A comprehensive website analysis tool that evaluates websites across multiple dimensions including SEO, security, robots.txt compliance, and sitemap validation. Built with Go and powered by AI-driven recommendations.
 
@@ -237,30 +237,38 @@ checkly/
 └── README.md                    # This file
 ```
 
-## 🏛️ Backend Architecture
+## 🏛️ System Architecture
 
 ```mermaid
 graph TB
-    %% External interfaces
-    CLI[🖥️ CLI Interface]
-    TUI[📱 TUI Interface]
-    API[🌐 REST API]
+    %% Frontend layer
+    subgraph "Frontend Layer"
+        WEB[🌐 React Web App<br/>checkly-ui]
+        AUTH[🔐 Firebase Auth<br/>Authentication]
+    end
+    
+    %% Backend interfaces
+    subgraph "Backend Interfaces"
+        CLI[🖥️ CLI Interface]
+        TUI[📱 TUI Interface]
+        API[🌐 REST API]
+    end
     
     %% Core application layer
-    subgraph "Application Layer"
+    subgraph "Backend Application Layer"
         MAIN[📋 Main CLI<br/>cmd/main.go]
         SERVER[🚀 HTTP Server<br/>cmd/server/main.go]
         TUIMAIN[🎯 TUI App<br/>cmd/tui/main.go]
     end
     
     %% Service layer
-    subgraph "Service Layer"
+    subgraph "Backend Service Layer"
         SERVICE[⚙️ Service Handler<br/>internal/handlers/service.go]
         RECOMMEND[🤖 Recommendation Handler<br/>internal/handlers/recommendation.go]
     end
     
     %% Core business logic
-    subgraph "Core Engine"
+    subgraph "Backend Core Engine"
         CHECKER[🔍 Website Checker<br/>pkg/checker/checker.go]
         
         subgraph "Individual Checkers"
@@ -277,7 +285,7 @@ graph TB
     end
     
     %% Data layer
-    subgraph "Data Layer"
+    subgraph "Backend Data Layer"
         MODELS[📊 Data Models<br/>pkg/models/types.go]
         STORAGE[💾 MongoDB Storage<br/>internal/storage/mongo.go]
         REPORT[📄 Report Generator<br/>pkg/report/]
@@ -287,32 +295,38 @@ graph TB
     subgraph "External Services"
         MONGO[(🍃 MongoDB<br/>Database)]
         GEMINI_API[🤖 Google Gemini API]
+        FIREBASE[🔥 Firebase<br/>Auth Service]
         TARGET[🌐 Target Website]
     end
     
-    %% Interface connections
+    %% Frontend connections
+    WEB --> AUTH
+    WEB --> API
+    AUTH --> FIREBASE
+    
+    %% Backend interface connections
     CLI --> MAIN
     TUI --> TUIMAIN
     API --> SERVER
     
-    %% Application to service connections
+    %% Backend application to service connections
     SERVER --> SERVICE
     SERVER --> RECOMMEND
     
-    %% Service to core connections
+    %% Backend service to core connections
     SERVICE --> CHECKER
     RECOMMEND --> CHECKER
     RECOMMEND --> GEMINI
     MAIN --> CHECKER
     TUIMAIN --> CHECKER
     
-    %% Core engine connections
+    %% Backend core engine connections
     CHECKER --> ROBOTS
     CHECKER --> SITEMAP
     CHECKER --> SEO
     CHECKER --> SECURITY
     
-    %% Data flow connections
+    %% Backend data flow connections
     CHECKER --> MODELS
     CHECKER --> REPORT
     SERVICE --> STORAGE
@@ -327,18 +341,27 @@ graph TB
     SECURITY --> TARGET
     
     %% Styling
+    classDef frontend fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
     classDef interface fill:#e1f5fe,stroke:#01579b,stroke-width:2px
     classDef core fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
     classDef data fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
     classDef external fill:#fff3e0,stroke:#e65100,stroke-width:2px
     classDef ai fill:#fce4ec,stroke:#880e4f,stroke-width:2px
     
+    class WEB,AUTH frontend
     class CLI,TUI,API interface
     class CHECKER,ROBOTS,SITEMAP,SEO,SECURITY core
     class MODELS,STORAGE,REPORT,MONGO data
-    class TARGET,GEMINI_API external
+    class TARGET,GEMINI_API,FIREBASE external
     class GEMINI,RECOMMEND ai
 ```
+
+## 🌐 Frontend
+
+The website checker includes a modern React-based frontend interface for easy website analysis.
+
+- **Repository**: [https://github.com/checkly-go/checkly-ui](https://github.com/checkly-go/checkly-ui)
+- **Live Demo**: [https://checkly-go.vercel.app/](https://checkly-go.vercel.app/)
 
 ### Core Components
 
