@@ -3,6 +3,7 @@
 <div align="center">
 
 ![ChecKly Logo](assets/logo.png)
+![GitHub repo](https://img.shields.io/badge/built%20for-Boot.dev%20Hackathon-blueviolet)
 
 **Get instant insights about your website's performance, security, and SEO. Make your website ready for success with ChecKly.**
 
