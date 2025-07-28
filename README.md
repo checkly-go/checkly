@@ -2,6 +2,7 @@
 
 <div align="center">
 
+
 ![ChecKly Logo](assets/logo.png)
 ![GitHub repo](https://img.shields.io/badge/built%20for-Boot.dev%20Hackathon-blueviolet)
 
@@ -15,6 +16,29 @@
 [Live Demo](https://checkly-go.vercel.app) • [Report Bug](https://github.com/checkly-go/checkly/issues) • [Request Feature](https://github.com/checkly-go/checkly/issues)
 
 </div>
+
+## 🌐 Experience ChecKly
+
+<div align="center">
+  <img src="assets/hero.png" alt="ChecKly Hero" width="600">
+</div>
+
+<table>
+<tr>
+<td width="50%">
+  <img src="assets/report.png" alt="Web Report Interface" width="100%">
+  <p><em>Professional report interface showing comprehensive analysis results with visual indicators and detailed insights</em></p>
+</td>
+<td width="50%">
+  <img src="assets/leaderboard.png" alt="Leaderboard Interface" width="100%">
+  <p><em>Interactive leaderboard showcasing top-performing websites and competitive analysis features</em></p>
+</td>
+</tr>
+</table>
+
+**🔗 Try it now:**
+- **Live Demo**: [https://checkly-go.vercel.app/](https://checkly-go.vercel.app/) - Modern web interface
+- **Source Code**: [https://github.com/checkly-go/checkly-ui](https://github.com/checkly-go/checkly-ui) - Frontend repository
 
 ## 💡 Why ChecKly?
 
@@ -119,6 +143,10 @@ go build -o server ./cmd/server/
 ./checkly -url https://example.com -checkers security,sitemap -output text
 ```
 
+<img src="assets/cli.png" alt="CLI Interface" width="500">
+
+*Command-line interface showing comprehensive website analysis with detailed results and status indicators*
+
 #### 🖥️ API Server Mode
 ```bash
 # Start the REST API server (powers the web interface)
@@ -136,21 +164,6 @@ go build -o server ./cmd/server/
 # Or run TUI directly
 ./checkly-tui
 ```
-
-## 🌐 Web Frontend
-
-Experience ChecKly through our modern, intuitive web interface - perfect for non-technical users and visual analysis.
-
-**🎯 Features:**
-- Interactive dashboard with real-time analysis
-- Visual report generation with charts and insights
-- Easy sharing and export capabilities
-- Mobile-responsive design
-
-**🔗 Links:**
-- **Live Demo**: [https://checkly-go.vercel.app/](https://checkly-go.vercel.app/)
-- **Source Code**: [https://github.com/checkly-go/checkly-ui](https://github.com/checkly-go/checkly-ui)
-- **Documentation**: Built-in help and tooltips
 
 ## 📋 Comprehensive Website Analysis
 
@@ -562,6 +575,10 @@ type WebsiteReport struct {
 ## 🤖 AI-Powered Recommendations
 
 The tool integrates with Google Gemini to provide intelligent, actionable recommendations based on check results.
+
+<img src="assets/recommend.png" alt="AI Recommendations" width="500">
+
+*AI-powered recommendations interface providing intelligent insights and prioritized action items for website optimization*
 
 ### Features
 - **Contextual Analysis**: Understands the impact of each issue
