@@ -84,6 +84,9 @@ func main() {
 		api.GET("/check/:id", service.GetCheck)
 		api.GET("/check/:id/report", service.GetCheckReport)
 		api.POST("/recommend", service.GetRecommendations)
+		api.GET("/leaderboard", service.GetLeaderboard)
+		api.GET("/debug/checks", service.GetAllChecks)
+		//		api.GET("/debug/leaderboard", service.GetLeaderboardDebug)
 		api.GET("/health", func(c *gin.Context) {
 			c.JSON(http.StatusOK, gin.H{"status": "ok"})
 		})

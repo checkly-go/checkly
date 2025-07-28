@@ -29,7 +29,8 @@ func NewUserRepository(db *mongo.Database) UserRepository {
 type CheckRepository interface {
 	CreateCheck(ctx context.Context, check *models.WebsiteCheck) error
 	GetCheck(ctx context.Context, id primitive.ObjectID) (*models.WebsiteCheck, error)
-	// Additional methods can be added later.
+	GetLeaderboard(ctx context.Context, limit int) ([]models.LeaderboardEntry, error)
+	GetAllChecks(ctx context.Context) ([]models.WebsiteCheck, error)
 }
 
 type checkRepository struct {
@@ -62,4 +63,78 @@ func (r *checkRepository) GetCheck(ctx context.Context, id primitive.ObjectID) (
 		return nil, err
 	}
 	return &result, nil
+}
+
+func (r *checkRepository) GetLeaderboard(ctx context.Context, limit int) ([]models.LeaderboardEntry, error) {
+	if limit <= 0 {
+		limit = 10
+	}
+
+	pipeline := []bson.M{
+		{
+			"$match": bson.M{
+				"report":              bson.M{"$ne": nil},
+				"report.overallscore": bson.M{"$ne": nil, "$exists": true},
+			},
+		},
+		{
+			"$sort": bson.M{
+				"report.overallscore": -1,
+				"created_at":          -1,
+			},
+		},
+		{
+			"$group": bson.M{
+				"_id":          "$url",
+				"url":          bson.M{"$first": "$url"},
+				"overallscore": bson.M{"$first": "$report.overallscore"},
+				"timestamp":    bson.M{"$first": "$created_at"},
+			},
+		},
+		{
+			"$sort": bson.M{
+				"overallscore": -1,
+				"timestamp":    -1,
+			},
+		},
+		{
+			"$limit": limit,
+		},
+		{
+			"$project": bson.M{
+				"url":          1,
+				"overallscore": 1,
+				"timestamp":    1,
+				"_id":          0,
+			},
+		},
+	}
+
+	cursor, err := r.collection.Aggregate(ctx, pipeline)
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(ctx)
+
+	var results []models.LeaderboardEntry
+	if err = cursor.All(ctx, &results); err != nil {
+		return nil, err
+	}
+
+	return results, nil
+}
+
+func (r *checkRepository) GetAllChecks(ctx context.Context) ([]models.WebsiteCheck, error) {
+	cursor, err := r.collection.Find(ctx, bson.M{})
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(ctx)
+
+	var results []models.WebsiteCheck
+	if err = cursor.All(ctx, &results); err != nil {
+		return nil, err
+	}
+
+	return results, nil
 }
