@@ -1,10 +1,10 @@
 # 🚀 ChecKly - Website Analysis Made Simple
 
-<div align="center">
-
 
 ![ChecKly Logo](assets/logo.png)
-![GitHub repo](https://img.shields.io/badge/built%20for-Boot.dev%20Hackathon-blueviolet)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e138f4b3-805f-465e-b664-3d1b8dd5cf0a/deploy-status)](https://app.netlify.com/projects/checkly-go/deploys)
+<div align="center">
+
 
 **Get instant insights about your website's performance, security, and SEO. Make your website ready for success with ChecKly.**
 
@@ -13,7 +13,7 @@
 [![Gin](https://img.shields.io/badge/Gin-1.9+-00ACD7?style=for-the-badge&logo=go)](https://gin-gonic.com/)
 [![Docker](https://img.shields.io/badge/Docker-24.0+-2496ED?style=for-the-badge&logo=docker)](https://docker.com/)
 
-[Live Demo](https://checkly-go.vercel.app) • [Report Bug](https://github.com/checkly-go/checkly/issues) • [Request Feature](https://github.com/checkly-go/checkly/issues)
+[Live Demo](https://checkly.hawkaii.me) • [Report Bug](https://github.com/checkly-go/checkly/issues) • [Request Feature](https://github.com/checkly-go/checkly/issues)
 
 </div>
 
